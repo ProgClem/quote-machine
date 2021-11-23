@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Liste des citations</h1>
+    {% for item in pagination %}
+            <blockquote>
+                <p>{{ item.content }} {% if is_granted('ROLE_USER') %}<a class="btn btn-outline-secondary" href="/quote/{{ item.id }}/update">Editer</a>
+                    <a class="btn btn-outline-danger" href="/quote/{{ item.id }}/delete">Supprimer</a>{% endif %}</p>
+                <footer class="blockquote-footer">
+                    <cite>{{ item.meta }} </cite>
+                    {% if item.category.id is defined %}
+                        <a href="/category/{{ item.category.id }}">
+                            <span class="badge bg-primary">{{ item.category.name }}</span>
+                        </a>
+                    {% endif %}
+                </footer>
+            </blockquote>
+    {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

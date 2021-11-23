@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <blockquote>
+        <p>{{ quote.content }} {% if is_granted('ROLE_USER') %}<a class="btn btn-outline-secondary" href="/quote/{{ quote.id }}/update">Editer</a>
+            <a class="btn btn-outline-danger" href="/quote/{{ quote.id }}/delete">Supprimer</a>{% endif %}</p>
+        <footer class="blockquote-footer">
+            <cite>{{ quote.meta }} </cite>
+            {% if quote.category.id is defined %}
+                <a href="/category/{{ quote.category.id }}">
+                    <span class="badge bg-primary">{{ quote.category.name }}</span>
+                </a>
+            {% endif %}
+        </footer>
+    </blockquote>
+{% endblock %}

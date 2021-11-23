@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <h1>Liste des catégories</h1>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <div class="d-flex mb-2">
+                    <a class="" href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a>
+                    <p class="">[{{ category.count }}]  </p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-outline-secondary" href="{{ path('category_edit', {'id': category.id}) }}">editer</a>
+                    {{ include('category/_delete_form.html.twig') }}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
